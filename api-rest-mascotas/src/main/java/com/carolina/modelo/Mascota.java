@@ -32,9 +32,7 @@ public class Mascota {
 	private String raza;
 	@Column(nullable = false)
 	private float peso;
-	@Column(nullable = false, name = "tiene_chip")
-	private String tieneChip;
-	@Column(nullable = false, name = "url_foto")
-	private String urlFoto;
+	private String tiene_chip;
+	private String url_foto;
 
 }
