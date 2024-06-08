@@ -28,6 +28,7 @@ import com.carolina.modelo.Mascota;
 	@Autowired
 	private MascotaRepository mascotaRepo;
 
+	//Mostrar Mascota por ID
 	@GetMapping ("/mascotaId/{id}")
 	public ResponseEntity<Mascota> mascotaById(@PathVariable("id") Long id){
 		Optional <Mascota> optMascota = mascotaRepo.findById(id);
@@ -37,23 +38,27 @@ import com.carolina.modelo.Mascota;
 		return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
 	}
 
+	//Subir Mascota
 	@PostMapping(path="/mascota",consumes="application/json")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Mascota postMascota(@RequestBody Mascota mascota) {
 		return mascotaRepo.save(mascota);
 	}
 
+	//Listar todas las mascotas
 	@GetMapping("/mascota")
 	public Iterable<Mascota> allMascotas(){
 		return mascotaRepo.findAll();
 	}
 
+	//Borrar Mascota
 	@DeleteMapping("/mascota/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteMascota(@PathVariable("id")Long id) {
 		mascotaRepo.deleteById(id);
 	}
 
+	//Mostrar mascota por nombre
 	@GetMapping ("/mascotaName/{nombre}")
 	public ResponseEntity<Mascota> mascotaByName(@PathVariable("nombre") String nombre){
 		Optional <Mascota> optMascota = mascotaRepo.findMascotaByNombre(nombre);
@@ -63,6 +68,7 @@ import com.carolina.modelo.Mascota;
 		return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
 	}
 
+	//Mostrar mascota con pagina y listado especifico 
 	@GetMapping("/mascota/youngers/{pag}/{qtty}")
 	public Iterable<Mascota> littleMascotas (@PathVariable("pag")int pag, @PathVariable("qtty")int qtty){
 		PageRequest page = PageRequest.of(pag, qtty, Sort.by("fechaNac").descending());
